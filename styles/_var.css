@@ -1,0 +1,8 @@
+:root {
+  --border-color: #e4e4e7;
+  --color-links: #52525b;
+  --color-links-hover: #09090b;
+  --primary: #09090b;
+  --color-disabled: #71717a;
+  --border: 2px solid var(--border-color);
+}

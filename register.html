@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/auth.css" />
+    <title>Fashion</title>
+  </head>
+  <body>
+    <main class="main_container">
+      <form class="login_card" id="registerForm">
+        <h1>Create account</h1>
+        <p>
+          Create an account to be able to start tracking your fashion and design
+          shop
+        </p>
+        <div class="input_fields">
+          <div class="input_field">
+            <input type="text" placeholder="yourusername" id="username" />
+          </div>
+          <div class="input_field">
+            <input type="email" placeholder="youremail" id="email" />
+          </div>
+          <div class="input_field">
+            <input type="password" placeholder="yourpassword" id="password" />
+          </div>
+        </div>
+        <div>
+          <button type="submit">Continue</button>
+        </div>
+      </form>
+    </main>
+    <footer>
+      <div>
+        <p>About</p>
+        <p>Feedback</p>
+        <a href="/">Already have account</a>
+      </div>
+      <div>
+        <p>English (US)</p>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        (() => {
+          const req = new XMLHttpRequest();
+
+          req.onreadystatechange = function () {
+            if (req.readyState == XMLHttpRequest.DONE) {
+              if (req.status == 200) {
+                const resp = JSON.parse(req.responseText);
+
+                if (resp.isAuth) {
+                  window.location.href = "app/inv";
+                } else {
+                  console.log("Not authenticated");
+                }
+              }
+            }
+          };
+
+          req.open("GET", "api/auth.php", true);
+          req.send();
+        })();
+
+        document
+          .getElementById("registerForm")
+          .addEventListener("submit", (e) => {
+            e.preventDefault();
+            registerRequest();
+          });
+      });
+
+      function registerRequest() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const email = document.getElementById("email").value;
+
+        const data =
+          "username=" +
+          encodeURIComponent(username) +
+          "&password=" +
+          encodeURIComponent(password) +
+          "&email=" +
+          encodeURIComponent(email);
+
+        const req = new XMLHttpRequest();
+
+        req.onload = function () {
+          if (req.status == 200) {
+            const resp = JSON.parse(req.responseText);
+
+            if (resp.error) {
+              alert(resp.error);
+            } else if (resp.status == "success") {
+              window.location.href = "/app/inv";
+            }
+          }
+        };
+
+        req.open("POST", "api/register.php", true);
+        req.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        req.send(data);
+      }
+    </script>
+  </body>
+</html>
