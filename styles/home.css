@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight&display=swap");
+@import url("./_var.css");
+
+* {
+  font-family: "Inter Tight", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-links);
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+html {
+  position: fixed;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100%;
+}
+
+nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: linear-gradient(rgba(77, 161, 161, 0.133), rgb(147, 223, 179));
+}
+
+.nav__left > h2 {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.nav__middle {
+  display: flex;
+  gap: 30px;
+}
+
+.nav__right {
+  display: flex;
+  gap: 20px;
+  margin-right: 20px;
+}
+
+.nav__right > button {
+  background-color: black;
+  color: white;
+  height: 40px;
+  border: none;
+  outline: none;
+  width: 100px;
+  border-radius: 120px;
+  transition: ease-in-out;
+  cursor: pointer;
+}
+
+.nav__right > button:hover {
+  transform: scale(1.15);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  flex: 1;
+}
+
+footer {
+  border-top: 1px solid black;
+  padding: 20px 30px;
+}

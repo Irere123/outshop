@@ -3,93 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/auth.css" />
-    <title>Fashion</title>
+    <link rel="stylesheet" href="styles/home.css" />
+    <title>Document</title>
   </head>
   <body>
-    <main class="main_container">
-      <form class="login_card" id="loginForm">
-        <h1>Login</h1>
-        <p>By Continuing you agreee to our terms and privacy policies</p>
-        <div class="input_fields">
-          <label for="email">Username</label>
-          <div class="input_field">
-            <input type="text" placeholder="yourname" id="username" />
-          </div>
-          <label for="password">Password</label>
-          <div class="input_field">
-            <input type="password" placeholder="yourpassword" id="password" />
-          </div>
+    <header>
+      <nav>
+        <div class="nav__left">
+          <h2>OUTSHOP</h2>
         </div>
-        <div>
-          <button>Continue</button>
+        <div class="nav__middle">
+          <a href="about.html">About</a>
+          <a href="index.html">Contact</a>
         </div>
-      </form>
+        <div class="nav__right">
+          <button>Sign up</button>
+          <button>Sign in</button>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section id="hero">
+        <h1>Manage your fashion shop your way</h1>
+      </section>
+      <section>
+        <p>
+          Outshop will transform the way you do your business and other
+          activities
+        </p>
+      </section>
     </main>
     <footer>
       <div>
-        <p>About</p>
-        <p>Feedback</p>
-        <a href="/register.html">Create an account</a>
+        <a href="About">About</a><a href="About">Home</a
+        ><a href="About">About</a>
       </div>
-
-      <div>
-        <p>English (US)</p>
-      </div>
+      <div><a href="">Mission</a></div>
     </footer>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        (() => {
-          const req = new XMLHttpRequest();
-
-          req.onreadystatechange = function () {
-            if (req.readyState == XMLHttpRequest.DONE) {
-              if (req.status == 200) {
-                const resp = JSON.parse(req.responseText);
-
-                if (resp.isAuth) {
-                  window.location.href = "app/inv";
-                } else {
-                  console.log("Not authenticated");
-                }
-              }
-            }
-          };
-
-          req.open("GET", "api/auth.php", true);
-          req.send();
-        })();
-
-        document.getElementById("loginForm").addEventListener("submit", (e) => {
-          e.preventDefault();
-          loginRequest();
-        });
-      });
-
-      function loginRequest() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-
-        const data =
-          "username=" + encodeURIComponent(username) + "&password=" + password;
-
-        const request = new XMLHttpRequest();
-
-        request.onload = function () {
-          if (request.status == 200) {
-            const resp = JSON.parse(request.responseText);
-
-            if (resp.error) {
-              alert(resp.error);
-            } else if (resp.status == "success") {
-              window.location.href = "/app/inv";
-            }
-          }
-        };
-
-        request.open("POST", "api/login.php", true);
-        request.send(data);
-      }
-    </script>
   </body>
 </html>
