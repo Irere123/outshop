@@ -185,108 +185,82 @@
                   placeholder="Enter location"
                 />
               </div>
-              <button type="button" onclick="updateItem()">Update</button>
-              <button type="button" onclick="deleteItem()">Delete</button>
+              <button type="button" id="update_button">Update</button>
+              <button type="button" id="delete_button" onclick="deleteItem()">
+                Delete
+              </button>
             </form>
           </div>
         </section>
       </main>
     </div>
+    <script src="../../../jquery.js"></script>
     <script>
       const params = new URLSearchParams(document.location.search);
 
-      document.addEventListener("DOMContentLoaded", () => {
-        loadItem();
-      });
+      $(document)
+        .ready(() => {
+          const id = params.get("id") || "1";
 
-      function loadItem() {
-        const id = params.get("id") || "1";
+          $.ajax("../../../api/inventory.php", {
+            type: "GET",
+            success: (resp) => {
+              resp.forEach((item) => {
+                if (item.id == id) {
+                  document.getElementById("price").value = item.price;
+                  document.getElementById("itemId").value = item.id;
+                  document.getElementById("quantity").value = item.quantity;
+                  document.getElementById("category").value = item.category;
+                  document.getElementById("item").value = item.item;
+                }
+              });
+            },
+          });
 
-        const request = new XMLHttpRequest();
-
-        request.open("GET", "../../../api/inventory.php", true);
-        request.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        request.send();
-
-        request.onload = () => {
-          if (request.status == 200) {
-            const resp = JSON.parse(request.responseText);
-
-            resp.forEach((item) => {
-              if (item.id == id) {
-                document.getElementById("price").value = item.price;
-                document.getElementById("itemId").value = item.id;
-                document.getElementById("quantity").value = item.quantity;
-                document.getElementById("category").value = item.category;
-                document.getElementById("item").value = item.item;
+          $.ajax("../../../api/inventory.php", {
+            type: "PUT",
+            success: (_resp, status) => {
+              if (status == "success") {
+                window.location.href = "/app/inv";
               }
+            },
+          });
+
+          $("#update_button").on("click", () => {
+            let id = $("#itemId").val();
+            let price = $("#price").val();
+            let item = $("#item").val();
+            let quantity = $("#quantity").val();
+            let category = $("#category").val();
+
+            let formData = { id, price, item, quantity, category };
+
+            $.ajax("../../../api/inventory.php", {
+              type: "PUT",
+              data: { ...formData },
+              success: (resp) => {
+                if (resp.status == "success") {
+                  window.location.href = "/app/inv";
+                }
+              },
             });
-          }
-        };
-      }
+          });
 
-      function updateItem() {
-        const id = document.getElementById("itemId").value;
-        const price = document.getElementById("price").value;
-        const item = document.getElementById("item").value;
-        const quantity = document.getElementById("quantity").value;
-        const category = document.getElementById("category").value;
+          $("#delete_button").on("click", () => {
+            let id = $("#itemId").val();
 
-        const xhr = new XMLHttpRequest();
-
-        let data =
-          "id=" +
-          id +
-          "&price=" +
-          price +
-          "&quantity=" +
-          quantity +
-          "&category=" +
-          category +
-          "&item=" +
-          item;
-
-        xhr.open("PUT", "../../../api/inventory.php", true);
-        xhr.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        xhr.send(data);
-
-        xhr.onload = () => {
-          if (xhr.status == 200) {
-            window.location.href = "/app/inv";
-          }
-        };
-      }
-
-      function deleteItem() {
-        const id = document.getElementById("itemId").value;
-
-        const xhr = new XMLHttpRequest();
-
-        let data = "id=" + id;
-
-        xhr.open("DELETE", "../../../api/inventory.php", true);
-        xhr.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        xhr.send(data);
-
-        xhr.onload = () => {
-          if (xhr.status == 200) {
-            const resp = JSON.parse(xhr.responseText);
-
-            if (resp.status == "success") {
-              window.location.href = "/app/inv";
-            }
-          }
-        };
-      }
+            $.ajax("../../../api/inventory.php", {
+              type: "DELETE",
+              data: { id },
+              success: (resp) => {
+                if (resp.status == "success") {
+                  window.location.href = "/app/inv";
+                }
+              },
+            });
+          });
+        })
+        .fadeIn();
     </script>
   </body>
 </html>
