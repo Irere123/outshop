@@ -268,3 +268,33 @@ td {
   align-items: center;
   flex-direction: column;
 }
+
+#addRecordForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 400px;
+}
+
+#addRecordForm > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#addRecordForm > div > input {
+  background-color: transparent;
+  border: var(--border);
+  outline: none;
+  padding: 10px 5px;
+}
+
+#addRecordForm > button {
+  background-color: var(--primary);
+  border: none;
+  outline: none;
+  height: 35px;
+  color: #fff;
+  font-size: large;
+  border-radius: 6px;
+}

@@ -61,7 +61,7 @@ function getRecords() {
     if (req.status == 200) {
       const tbody = document.getElementById("records_body");
       const records = JSON.parse(req.responseText);
-
+      console.log(records);
       tbody.innerHTML = "";
       records.forEach((record) => {
         const tr = document.createElement("tr");
@@ -70,6 +70,7 @@ function getRecords() {
         <td>${record.title}</td>
         <td>${record.description}</td>
         <td>${record.product_name}</td>
+        <td>${record.created_at}</td>
         `;
 
         tbody.appendChild(tr);
