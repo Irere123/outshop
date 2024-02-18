@@ -1,6 +1,6 @@
 import { format } from "https://cdn.jsdelivr.net/npm/date-fns@3.3.1/+esm";
 
-const modals = document.querySelectorAll("[data-modal]");
+const modals = $("[data-modal]");
 
 modals.forEach(function (trigger) {
   trigger.addEventListener("click", function (event) {

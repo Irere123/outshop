@@ -150,41 +150,28 @@
         </section>
       </main>
     </div>
+    <script src="../../jquery.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        loadProfile();
-      });
+      $(document).ready(() => {
+        $.ajax("../api/user.php", {
+          type: "GET",
+          success: (profile) => {
+            const container = $(".main_container");
+            const div = $("<div></div>");
 
-      function loadProfile() {
-        const request = new XMLHttpRequest();
+            div.addClass("profile_wrapper");
 
-        request.onreadystatechange = function () {
-          if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status == 200) {
-              const profile = JSON.parse(request.responseText);
-              console.log(profile);
-              const container = document.querySelector(".main_container");
-
-              const div = document.createElement("div");
-
-              div.classList.add("profile_wrapper");
-
-              div.innerHTML = `
+            div.html(`
               <div><p>Profile</p></div>
               <div>
                 <p><strong>Username:</strong> ${profile.username}</p>
                 <p><strong>Email: </strong>${profile.email}</p>
-              </div>
-              `;
+              </div>`);
 
-              container.appendChild(div);
-            }
-          }
-        };
-
-        request.open("GET", "../api/user.php", true);
-        request.send();
-      }
+            container.append(div);
+          },
+        });
+      });
     </script>
   </body>
 </html>

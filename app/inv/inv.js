@@ -15,74 +15,50 @@ modals.forEach(function (trigger) {
   });
 });
 
-document.getElementById("addItemForm").addEventListener("submit", (e) => {
+$("addItemForm").on("submit", (e) => {
   e.preventDefault();
   addItemRequest();
 });
 
 function addItemRequest() {
-  const item = document.getElementById("item").value;
-  const category = document.getElementById("category").value;
-  const price = document.getElementById("price").value;
-  const quantity = document.getElementById("quantity").value;
+  const item = $("#item").val();
+  const category = $("#category").val();
+  const price = $("#price").val();
+  const quantity = $("quantity").val();
 
-  const data =
-    "item=" +
-    encodeURIComponent(item) +
-    "&category=" +
-    encodeURIComponent(category) +
-    "&price=" +
-    encodeURIComponent(price) +
-    "&quantity=" +
-    encodeURIComponent(quantity);
+  const formData = { item, price, category, quantity };
 
-  const req = new XMLHttpRequest();
-
-  req.onload = function () {
-    if (req.status == 200) {
-      const resp = JSON.parse(req.responseText);
-
-      if (resp.status == "success") {
+  $.ajax("../api/inventory.php", {
+    type: "POST",
+    data: formData,
+    success: (response) => {
+      if (response.status == "success") {
         window.location.href = "/app/inv";
       }
-    }
-  };
-
-  req.open("POST", "../api/inventory.php", true);
-  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  req.send(data);
+    },
+  });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  getInventory();
-});
+$(document).ready(() => {
+  $.ajax("../api/inventory.php", {
+    type: "GET",
+    success: (response) => {
+      const tbody = $("#inventory_tbody");
+      $.each(response, (_idx, item) => {
+        const tr = $("<tr></tr>");
 
-function getInventory() {
-  const req = new XMLHttpRequest();
+        tr.html(`
+          <td onclick="push(${item.id})">${item.item}</td>
+          <td onclick="push(${item.id})">${item.category}</td>
+          <td onclick="push(${item.id})">${item.quantity}</td>
+          <td onclick="push(${item.id})">${item.price}</td>
+        `);
 
-  req.onload = () => {
-    if (req.status == 200) {
-      const tbody = document.getElementById("inventory_tbody");
-      const items = JSON.parse(req.responseText);
-      tbody.innerHTML = "";
-      items.forEach((item) => {
-        const tr = document.createElement("tr");
-
-        tr.innerHTML = `
-        <td onclick="push(${item.id})">${item.item}</td>
-        <td onclick="push(${item.id})">${item.category}</td>
-        <td onclick="push(${item.id})">${item.quantity}</td>
-        <td onclick="push(${item.id})">${item.price}</td>
-        `;
-
-        tbody.appendChild(tr);
+        tbody.append(tr);
       });
-    }
-  };
-
-  req.open("GET", "../api/inventory.php", true);
-  req.send();
-}
+    },
+  });
+});
 
 function push(id) {
   window.location.href = `inv/detail/index.html?id=${id}`;
