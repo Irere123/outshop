@@ -17,67 +17,48 @@ modals.forEach(function (trigger) {
   });
 });
 
-document.getElementById("addScheduleForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  addScheduleRequest();
-});
+$(document).ready(() => {
+  $("#addScheduleForm").on("submit", (e) => {
+    e.preventDefault();
 
-function addScheduleRequest() {
-  const event_name = document.getElementById("event_name").value;
-  const created_at = document.getElementById("created_at").value;
+    const event_name = $("#event_name").val();
+    const created_at = $("#created_at").val();
 
-  const data =
-    "event_name=" +
-    encodeURIComponent(event_name) +
-    "&created_at=" +
-    encodeURIComponent(created_at);
+    const formData = { event_name, created_at };
 
-  const req = new XMLHttpRequest();
+    $.ajax("../api/schedules.php", {
+      type: "POST",
+      data: formData,
+      success: (response) => {
+        if (response.status == "success") {
+          window.location.href = "/app/schedules";
+        }
+      },
+    });
+  });
 
-  req.onload = function () {
-    if (req.status == 200) {
-      const resp = JSON.parse(req.responseText);
-
-      if (resp.status == "success") {
-        window.location.href = "/app/schedules";
-      }
-    }
-  };
-
-  req.open("POST", "../api/schedules.php", true);
-  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  req.send(data);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
   getSchedules();
 });
 
 function getSchedules() {
-  const req = new XMLHttpRequest();
+  $.ajax("../api/schedules.php", {
+    type: "GET",
+    success: (response) => {
+      const tbody = $("#schedules_body");
 
-  req.onload = () => {
-    if (req.status == 200) {
-      const tbody = document.getElementById("schedules_body");
-      const schedules = JSON.parse(req.responseText);
-
-      tbody.innerHTML = "";
-      schedules.forEach((schedule) => {
-        const tr = document.createElement("tr");
+      $.each(response, (_index, schedule) => {
+        const tr = $("<tr></tr>");
         const date = format(new Date(schedule.created_at), "MMM, dd yyyy");
         const time = format(new Date(schedule.created_at), "hh:mm a");
 
-        tr.innerHTML = `
-        <td>${schedule.event_name}</td>
-        <td>${date}</td>
-        <td>${time}</td>
-        `;
+        tr.html(`
+          <td>${schedule.event_name}</td>
+          <td>${date}</td>
+          <td>${time}</td>
+        `);
 
-        tbody.appendChild(tr);
+        tbody.append(tr);
       });
-    }
-  };
-
-  req.open("GET", "../api/schedules.php", true);
-  req.send();
+    },
+  });
 }
