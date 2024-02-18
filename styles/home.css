@@ -17,15 +17,22 @@ html {
   display: flex;
 }
 
-html {
+/* html {
   position: fixed;
-}
+} */
 
 body {
   display: flex;
   flex-direction: column;
   margin: 0;
   height: 100%;
+  overflow-x: hidden;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 }
 
 nav {
@@ -35,7 +42,6 @@ nav {
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
-  background: linear-gradient(rgba(77, 161, 161, 0.133), rgb(147, 223, 179));
 }
 
 .nav__left > h2 {
@@ -73,11 +79,48 @@ nav {
 main {
   display: flex;
   flex-direction: column;
-  margin: auto;
   flex: 1;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 100px;
 }
 
 footer {
   border-top: 1px solid black;
   padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 100px;
+}
+
+footer > .footer_section > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.address > p {
+  margin: 0;
+}
+
+.hero_button {
+  display: flex;
+  border-width: 4px;
+  border-style: solid;
+  border-image: linear-gradient(to right, darkblue, darkorchid) 1;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 50em;
+  cursor: pointer;
+  transition: ease-in-out;
+}
+
+.hero_button:hover {
+  transform: scale(1.1);
 }
