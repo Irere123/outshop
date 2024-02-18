@@ -184,6 +184,8 @@ td {
   transform: scale(1.1);
 }
 
+/*  Modal  */
+
 .modal {
   position: fixed;
   width: 100vw;
@@ -231,6 +233,8 @@ td {
   border: var(--border);
 }
 
+/* Add Item form */
+
 #addItemForm {
   display: flex;
   flex-direction: column;
@@ -260,6 +264,8 @@ td {
   border-radius: 6px;
 }
 
+/* Profile page */
+
 .profile_wrapper {
   width: 100%;
   height: 100%;
@@ -268,6 +274,8 @@ td {
   align-items: center;
   flex-direction: column;
 }
+
+/* Add record form */
 
 #addRecordForm {
   display: flex;
@@ -297,4 +305,56 @@ td {
   color: #fff;
   font-size: large;
   border-radius: 6px;
+}
+
+/* Add schedule form */
+
+#addScheduleForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 400px;
+}
+
+#addScheduleForm > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#addScheduleForm > div > input {
+  background-color: transparent;
+  border: var(--border);
+  outline: none;
+  padding: 10px 5px;
+}
+
+#addScheduleForm > button {
+  background-color: var(--primary);
+  border: none;
+  outline: none;
+  height: 35px;
+  color: #fff;
+  font-size: large;
+  border-radius: 6px;
+}
+
+#pagination {
+  margin-top: 20px;
+}
+
+#pagination > #prev {
+  border: none;
+  outline: none;
+  background-color: #e4e4e7;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#pagination > #next {
+  border: none;
+  outline: none;
+  background-color: #e4e4e7;
+  padding: 10px 20px;
+  cursor: pointer;
 }

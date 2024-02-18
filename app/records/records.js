@@ -15,69 +15,49 @@ modals.forEach(function (trigger) {
   });
 });
 
-document.getElementById("addRecordForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  addRecordRequest();
-});
-
-function addRecordRequest() {
-  const title = document.getElementById("title").value;
-  const description = document.getElementById("description").value;
-  const productName = document.getElementById("product_name").value;
-
-  const data =
-    "title=" +
-    encodeURIComponent(title) +
-    "&description=" +
-    encodeURIComponent(description) +
-    "&product_name=" +
-    encodeURIComponent(productName);
-
-  const req = new XMLHttpRequest();
-
-  req.onload = function () {
-    if (req.status == 200) {
-      const resp = JSON.parse(req.responseText);
-
-      if (resp.status == "success") {
-        window.location.href = "/app/records";
-      }
-    }
-  };
-
-  req.open("POST", "../api/records.php", true);
-  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  req.send(data);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+$(document).ready(() => {
   getRecords();
+
+  $("#addRecordForm").on("submit", (e) => {
+    e.preventDefault();
+
+    const title = $("#title").val();
+    const description = $("#description").val();
+    const productName = $("#product_name").val();
+
+    const formData = { title, description, productName };
+
+    $,
+      ajax("../api/records.php", {
+        type: "POST",
+        data: formData,
+        success: (response) => {
+          if (response.status == "success") {
+            window.location.href = "/app/records";
+          }
+        },
+      });
+  });
 });
 
 function getRecords() {
-  const req = new XMLHttpRequest();
+  const tbody = $("#records_body");
 
-  req.onload = () => {
-    if (req.status == 200) {
-      const tbody = document.getElementById("records_body");
-      const records = JSON.parse(req.responseText);
-      console.log(records);
-      tbody.innerHTML = "";
-      records.forEach((record) => {
-        const tr = document.createElement("tr");
+  $.ajax("../api/records.php", {
+    type: "GET",
+    success: (response) => {
+      $.each(response, (idx, record) => {
+        const tr = $("<tr></tr>");
 
-        tr.innerHTML = `
+        tr.html(`
         <td>${record.title}</td>
         <td>${record.description}</td>
         <td>${record.product_name}</td>
         <td>${record.created_at}</td>
-        `;
+        `);
 
-        tbody.appendChild(tr);
+        tbody.append(tr);
       });
-    }
-  };
-
-  req.open("GET", "../api/records.php", true);
-  req.send();
+    },
+  });
 }

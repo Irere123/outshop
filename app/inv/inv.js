@@ -15,16 +15,13 @@ modals.forEach(function (trigger) {
   });
 });
 
-$("addItemForm").on("submit", (e) => {
+$("#addItemForm").on("submit", (e) => {
   e.preventDefault();
-  addItemRequest();
-});
 
-function addItemRequest() {
   const item = $("#item").val();
   const category = $("#category").val();
   const price = $("#price").val();
-  const quantity = $("quantity").val();
+  const quantity = $("#quantity").val();
 
   const formData = { item, price, category, quantity };
 
@@ -32,12 +29,13 @@ function addItemRequest() {
     type: "POST",
     data: formData,
     success: (response) => {
+      console.log(response);
       if (response.status == "success") {
         window.location.href = "/app/inv";
       }
     },
   });
-}
+});
 
 $(document).ready(() => {
   $.ajax("../api/inventory.php", {
@@ -63,3 +61,38 @@ $(document).ready(() => {
 function push(id) {
   window.location.href = `inv/detail/index.html?id=${id}`;
 }
+
+$(document).ready(function () {
+  var rowsPerPage = 5;
+  var currentPage = 1;
+
+  showPage(currentPage);
+
+  $("#prev").on("click", function () {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+    }
+  });
+
+  $("#next").on("click", function () {
+    if (currentPage < totalPages()) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  });
+
+  function showPage(page) {
+    var startIndex = (page - 1) * rowsPerPage;
+    var endIndex = startIndex + rowsPerPage - 1;
+
+    $("#myTable tbody tr")
+      .hide()
+      .slice(startIndex, endIndex + 1)
+      .fadeIn();
+  }
+
+  function totalPages() {
+    return Math.ceil($("#myTable tbody tr").length / rowsPerPage);
+  }
+});
