@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/home.css" />
-    <title>Document</title>
+    <title>OUTSHOP | Management at sl</title>
   </head>
   <body>
     <header>
@@ -13,14 +13,13 @@
           <h2>OUTSHOP</h2>
         </div>
         <div class="nav__middle">
-          <a href="about.html">About</a>
-          <a href="index.html">Contact</a>
-          <a href="index.html">Pricing</a>
-          <a href="index.html">Customers</a>
+          <a class="nav_link" href="/">Home</a>
+          <a class="nav_link" href="about.html">About</a>
+          <a class="nav_link" href="pricing.html">Pricing</a>
         </div>
         <div class="nav__right">
-          <button>Sign in</button>
-          <button>Get started</button>
+          <button id="sign_in" type="button">Sign in</button>
+          <button id="sign_out" type="button">Get started</button>
         </div>
       </nav>
     </header>
@@ -29,12 +28,99 @@
         <button class="hero_button">Introducing records</button>
         <h1>Manage your fashion shop your way</h1>
       </section>
-      <section>
+      <section id="slogan">
         <p>
           The best way to manage your fashion shop. Deliver analytics and
           management at scale.
         </p>
         <button class="call_to_action">Get started</button>
+      </section>
+      <section class="testimonials">
+        <h2>Don't take our words for it.</h2>
+        <div class="testimonials_cards">
+          <div>
+            <div>
+              <img
+                class="avatar_img"
+                src="/public/guy.jpg"
+                alt="Guy"
+                width="50"
+                height="50"
+              />
+              <p>Mike Guy</p>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+                praesentium odio rerum voluptatem corporis aliquam quo
+                perspiciatis sunt quaerat impedit.
+              </p>
+            </div>
+          </div>
+          <div>
+            <div>
+              <img
+                class="avatar_img"
+                src="/public/will.jpg"
+                alt="Guy"
+                width="50"
+                height="50"
+              />
+              <p>Will smith</p>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto
+                voluptates ipsa quia iste dolores aliquam perferendis eveniet,
+                saepe sunt distinctio?
+              </p>
+            </div>
+          </div>
+          <div>
+            <div>
+              <img
+                class="avatar_img"
+                src="/public/Chris-Pratt.avif"
+                alt="Guy"
+                width="50"
+                height="50"
+              />
+              <p>Chris Pratt</p>
+            </div>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
+              officia, explicabo repudiandae harum quisquam velit nobis
+              reprehenderit perspiciatis delectus impedit!
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="features">
+        <div class="features_row">
+          <div><h1>In the box</h1></div>
+          <div>
+            <h3>Inventory</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+              pariatur illum distinctio est quibusdam cupiditate dolorum maxime
+              maiores! Iste, tempora.
+            </p>
+          </div>
+        </div>
+        <div class="features_row">
+          <div>
+            <h3>Records</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+              pariatur illum distinctio est quibusdam cupiditate dolorum maxime
+              maiores! Iste, tempora.
+            </p>
+          </div>
+          <div>
+            <h3>Schedules</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
+              pariatur illum distinctio est quibusdam cupiditate dolorum maxime
+              maiores! Iste, tempora.
+            </p>
+          </div>
+        </div>
       </section>
     </main>
     <footer>
@@ -69,5 +155,23 @@
         </div>
       </div>
     </footer>
+    <script src="jquery.js"></script>
+    <script>
+      $("#sign_in").on("click", () => {
+        window.location.href = "/login.html";
+      });
+
+      $("#sign_out").on("click", () => {
+        window.location.href = "/register.html";
+      });
+
+      $(document).ready(function () {
+        $("[href]").each(function () {
+          if (this.href == window.location.href) {
+            $(this).addClass("active");
+          }
+        });
+      });
+    </script>
   </body>
 </html>

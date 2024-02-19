@@ -124,3 +124,67 @@ footer > .footer_section > div {
 .hero_button:hover {
   transform: scale(1.1);
 }
+
+#hero > h1 {
+  font-size: 45px;
+}
+#slogan {
+  font-size: x-large;
+}
+
+.active {
+  color: black;
+  font-weight: bold;
+}
+
+.call_to_action {
+  outline: none;
+  border: none;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 120px;
+  height: 50px;
+  font-size: large;
+  cursor: pointer;
+}
+
+.testimonials > h2 {
+  text-align: center;
+  font-size: 40px;
+}
+
+.testimonials_cards {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.testimonials_cards > div {
+  height: 250px;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 2px 4px 10px #f4f4f4;
+  cursor: pointer;
+}
+
+.avatar_img {
+  border-radius: 100%;
+}
+
+#features {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 2px solid #000;
+  margin-bottom: 30px;
+}
+
+.features_row {
+  display: flex;
+  gap: 20px;
+  flex: 1 1;
+}
