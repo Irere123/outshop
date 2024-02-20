@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/home.css" />
+    <title>OUTSHOP | Management at sl</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav__left">
+          <h2>OUTSHOP</h2>
+        </div>
+        <div class="nav__middle">
+          <a class="nav_link" href="/">Home</a>
+          <a class="nav_link" href="/#features">Features</a>
+          <a class="nav_link" href="pricing.html">Pricing</a>
+        </div>
+        <div class="nav__right">
+          <button id="sign_in" type="button">Sign in</button>
+          <button id="sign_out" type="button">Get started</button>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section id="pricing_header">
+        <h2>Choose your right plan!</h2>
+        <p>
+          Are you struggling to keep track of your fashion inventory
+          efficiently? Look no further! Our inventory management system offers
+          tailored plans to suit the unique needs of your fashion shop, ensuring
+          smooth operations and optimized stock management.
+        </p>
+      </section>
+      <section id="pricing_cards">
+        <div class="pricing_card">
+          <h3>Pro</h3>
+          <div>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Cupiditate, minus ab. Amet, impedit assumenda laudantium sequi hic
+              nesciunt mollitia iusto officia vero odio laboriosam eum sed
+              facere praesentium suscipit reprehenderit?
+            </p>
+          </div>
+          <div>
+            <ul>
+              <li>Email support</li>
+              <li>Perfect for small-scale fashion boutiques</li>
+              <li>20GB storage</li>
+              <li>30 people</li>
+              <li>Easy inventory</li>
+              <li>Easy inventory</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pricing_card">
+          <h3>Pro Plus</h3>
+          <div>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Cupiditate, minus ab. Amet, impedit assumenda laudantium sequi hic
+              nesciunt mollitia iusto officia vero odio laboriosam eum sed
+              facere praesentium suscipit reprehenderit?
+            </p>
+          </div>
+          <div>
+            <ul>
+              <li>Email support</li>
+              <li>Perfect for small-scale fashion boutiques</li>
+              <li>20GB storage</li>
+              <li>30 people</li>
+              <li>Easy inventory</li>
+              <li>Easy inventory</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pricing_card">
+          <h3>Custom</h3>
+          <div>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Cupiditate, minus ab. Amet, impedit assumenda laudantium sequi hic
+              nesciunt mollitia iusto officia vero odio laboriosam eum sed
+              facere praesentium suscipit reprehenderit?
+            </p>
+          </div>
+          <div>
+            <ul>
+              <li>Email support</li>
+              <li>Perfect for small-scale fashion boutiques</li>
+              <li>20GB storage</li>
+              <li>30 people</li>
+              <li>Easy inventory</li>
+              <li>Easy inventory</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div>
+        <div class="address">
+          <p>2261 Market Street #5039</p>
+          <p>Ruhengeri, RH 08</p>
+        </div>
+      </div>
+      <div class="footer_section">
+        <h4>Company</h4>
+        <div>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
+      <div class="footer_section">
+        <h4>Resources</h4>
+        <div>
+          <a href="#">Changelog</a>
+          <a href="#">Pricing</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+      <div class="footer_section">
+        <h4>Legal</h4>
+        <div>
+          <a href="#">Terms of use</a>
+          <a href="#">Privacy</a>
+          <a href="#">Acceptable use</a>
+        </div>
+      </div>
+    </footer>
+    <script src="jquery.js"></script>
+    <script>
+      $("#sign_in").on("click", () => {
+        window.location.href = "/login.html";
+      });
+
+      $("#sign_out").on("click", () => {
+        window.location.href = "/register.html";
+      });
+
+      $(document).ready(function () {
+        $("[href]").each(function () {
+          if (this.href == window.location.href) {
+            $(this).addClass("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

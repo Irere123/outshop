@@ -42,6 +42,8 @@ nav {
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
+  background-color: rgb(255 255 255 / 30%);
+  backdrop-filter: blur(10px);
 }
 
 .nav__left > h2 {
@@ -187,4 +189,37 @@ footer > .footer_section > div {
   display: flex;
   gap: 20px;
   flex: 1 1;
+}
+
+#pricing_header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+#pricing_header > h2 {
+  font-size: 45px;
+}
+
+#pricing_header > p {
+  font-size: large;
+}
+
+#pricing_cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.pricing_card {
+  background-color: #f4f4f4;
+  height: 400px;
+  width: 300px;
+  border: 2px solid gray;
+  padding: 10px 20px;
+  border-radius: 8px;
 }
