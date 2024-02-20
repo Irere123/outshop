@@ -37,58 +37,42 @@
         <p>English (US)</p>
       </div>
     </footer>
+    <script src="./jquery.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
+      $(document).ready(() => {
         (() => {
-          const req = new XMLHttpRequest();
-
-          req.onreadystatechange = function () {
-            if (req.readyState == XMLHttpRequest.DONE) {
-              if (req.status == 200) {
-                const resp = JSON.parse(req.responseText);
-
-                if (resp.isAuth) {
-                  window.location.href = "app/inv";
-                } else {
-                  console.log("Not authenticated");
-                }
+          $.ajax({
+            url: "api/auth.php",
+            type: "GET",
+            success: (resp) => {
+              if (resp.isAuth) {
+                window.location.href = "app/inv";
+              } else {
+                console.log("Not authenticated");
               }
-            }
-          };
-
-          req.open("GET", "api/auth.php", true);
-          req.send();
+            },
+          });
         })();
 
-        document.getElementById("loginForm").addEventListener("submit", (e) => {
+        $("#loginForm").on("submit", (e) => {
           e.preventDefault();
           loginRequest();
         });
       });
 
       function loginRequest() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
+        const username = $("#username").val();
+        const password = $("#password").val();
 
-        const data =
-          "username=" + encodeURIComponent(username) + "&password=" + password;
+        const data = { username, password };
 
-        const request = new XMLHttpRequest();
-
-        request.onload = function () {
-          if (request.status == 200) {
-            const resp = JSON.parse(request.responseText);
-
-            if (resp.error) {
-              alert(resp.error);
-            } else if (resp.status == "success") {
-              window.location.href = "/app/inv";
-            }
+        $.post("api/login.php", data, (data, status) => {
+          if (data.error) {
+            alert(data.error);
+          } else if (data.status == "success") {
+            window.location.href = "/app/inv";
           }
-        };
-
-        request.open("POST", "api/login.php", true);
-        request.send(data);
+        });
       }
     </script>
   </body>

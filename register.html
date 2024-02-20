@@ -40,70 +40,43 @@
         <p>English (US)</p>
       </div>
     </footer>
+    <script src="./jquery.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
+      $(document).ready(() => {
         (() => {
-          const req = new XMLHttpRequest();
-
-          req.onreadystatechange = function () {
-            if (req.readyState == XMLHttpRequest.DONE) {
-              if (req.status == 200) {
-                const resp = JSON.parse(req.responseText);
-
-                if (resp.isAuth) {
-                  window.location.href = "app/inv";
-                } else {
-                  console.log("Not authenticated");
-                }
+          $.ajax({
+            url: "api/auth.php",
+            type: "GET",
+            success: (resp) => {
+              if (resp.isAuth) {
+                window.location.href = "app/inv";
+              } else {
+                console.log("Not authenticated");
               }
-            }
-          };
-
-          req.open("GET", "api/auth.php", true);
-          req.send();
+            },
+          });
         })();
 
-        document
-          .getElementById("registerForm")
-          .addEventListener("submit", (e) => {
-            e.preventDefault();
-            registerRequest();
-          });
+        $("#registerForm").on("submit", (e) => {
+          e.preventDefault();
+          registerRequest();
+        });
       });
 
       function registerRequest() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const email = document.getElementById("email").value;
+        const username = $("#username").val();
+        const password = $("#password").val();
+        const email = $("#email").val();
 
-        const data =
-          "username=" +
-          encodeURIComponent(username) +
-          "&password=" +
-          encodeURIComponent(password) +
-          "&email=" +
-          encodeURIComponent(email);
+        const data = { username, password, email };
 
-        const req = new XMLHttpRequest();
-
-        req.onload = function () {
-          if (req.status == 200) {
-            const resp = JSON.parse(req.responseText);
-
-            if (resp.error) {
-              alert(resp.error);
-            } else if (resp.status == "success") {
-              window.location.href = "/app/inv";
-            }
+        $.post("api/register.php", data, (data, status) => {
+          if (data.status == "success") {
+            window.location.href = "/login.html";
+          } else if (data.error) {
+            alert(data.error);
           }
-        };
-
-        req.open("POST", "api/register.php", true);
-        req.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        req.send(data);
+        });
       }
     </script>
   </body>

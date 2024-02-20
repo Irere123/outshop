@@ -22,15 +22,7 @@ switch ($method) {
             echo json_encode(array("error" => "user with that name already exists"));
         } else {
             $result = $mysqli->query("INSERT INTO users(username, password, email) values ('$username', '$hash', '$email')");
-
-            if ($result->num_rows > 0) {
-                $user = $result->fetch_assoc();
-                session_regenerate_id();
-                $_SESSION["user_id"] = $user["user_id"];
-                echo json_encode(array("status" => "success"));
-            }
-
-            echo json_encode(array("error" => "there was error in the insert"));
+            echo json_encode(array("status" => "success"));
         }
         break;
     default:
