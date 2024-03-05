@@ -120,7 +120,7 @@
               type="text"
               placeholder="Search..."
               name="search"
-              id="search_bar"
+              id="searchInput"
               autocomplete="off"
             />
           </div>
@@ -155,20 +155,19 @@
               <table id="myTable">
                 <thead class="border-b">
                   <tr class="border-b">
+                    <th class="h-12 px-4">ID</th>
                     <th class="h-12 px-4">Item</th>
                     <th class="h-12 px-4">Category</th>
                     <th class="h-12 px-4">Quantity</th>
                     <th class="h-12 px-4">Price</th>
+                    <th><button type="button" id="delete">DELETE</button></th>
                   </tr>
                 </thead>
                 <tbody id="inventory_tbody"></tbody>
               </table>
             </div>
           </div>
-          <div id="pagination">
-            <button id="prev">Previous</button>
-            <button id="next">Next</button>
-          </div>
+          <div id="pagination"></div>
         </section>
       </main>
     </div>

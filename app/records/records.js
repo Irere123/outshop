@@ -27,16 +27,15 @@ $(document).ready(() => {
 
     const formData = { title, description, productName };
 
-    $,
-      ajax("../api/records.php", {
-        type: "POST",
-        data: formData,
-        success: (response) => {
-          if (response.status == "success") {
-            window.location.href = "/app/records";
-          }
-        },
-      });
+    $.ajax("../api/records.php", {
+      type: "POST",
+      data: formData,
+      success: (response) => {
+        if (response.status == "success") {
+          window.location.href = "/app/records";
+        }
+      },
+    });
   });
 });
 
