@@ -66,7 +66,8 @@ $(document).ready(() => {
         tableBody.appendChild(row);
       });
     } else {
-      tableBody.innerHTML = "No data";
+      tableBody.innerHTML =
+        "<p class='no-data'>There were no records of data in your inventory</p>";
     }
   }
 
